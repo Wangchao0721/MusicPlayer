@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MediaPlayerActivity!</string>
+    <string name="app_name">在线音乐</string>
+    <string name="foreground_service_started">Service is in the foreground</string>
+    <string name="wait">Wait for....</string>
+    <string name="loading">Loading.....</string>
+    <string name="ready">Ready to play....</string>
+    <string name="pause">Pause</string>
+    <string name="play">Play</string>
+    <string name="prev">Prev</string>
+    <string name="next">Next</string>
+    <string name="error_nosdcard">储存卡不可用</string>
+    <string name="error_connectivity">网络错误，请检查您的网络设置</string>
+    <string name="error_400">对不起，域名不能正确解析</string>
+    <string name="error_401">对不起，您没有权限访问</string>
+    <string name="error_404">对不起，页面不存在</string>
+    <string name="error_500">对不起，服务器错误，请稍后</string>
+    <string name="playing">正在播放：</string>
+    <string name="lastone">已经是最后一首了</string>
+    <string name="firstone">已经是第一首了</string>
+    <string name="alert">提示</string>
+
+    <!-- Do not translate. Duration format for duration < 1 hour -->
+    <string name="durationformatshort" translatable="false">%2$d:%5$02d</string>
+    <!-- Do not translate. Duration format for duration >= 1 hour -->
+    <string name="durationformatlong" translatable="false">%1$d:%3$02d:%5$02d</string>
+
+    
+    <!-- Recorder Lyric View -->
+    <string name="empty_lyric">暂无歌词</string>
+
+   
+    <!-- Music Player -->
+    <string name="shuffle">随机</string>
+    <string name="sequence">顺序</string>
+    <string name="error_nochoosenmusic">请选择一首歌曲播放</string>
+
+    <!-- Online Detail Activity -->
+    <string name="playlist">播放列表</string>
+    <string name="autoupdate_overtime">超时</string>
+    <string name="lyric_size">20</string>
+    <string name="lyric_distance">50</string>
+</resources>

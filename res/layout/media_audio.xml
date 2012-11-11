@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/music_bg"
+    android:orientation="vertical" >
+
+    <!-- Title Bar -->
+
+    <RelativeLayout
+        android:id="@+id/media_titlebar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/media_titlebar_height"
+        android:layout_alignParentTop="true">
+
+        <Button
+            android:layout_width="@dimen/media_titlebtn_size"
+            android:layout_height="@dimen/media_titlebtn_size"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/edge_margin"
+            android:onClick="onBackClick" 
+            android:background="@drawable/btn_list" />
+
+        <TextView
+            android:id="@+id/media_trackname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_vertical"
+            android:shadowColor="#ff000000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="3"
+            android:singleLine="true"
+            android:textColor="#ffffffff"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/media_singer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/media_trackname"
+            android:layout_centerHorizontal="true"
+            android:shadowColor="#ff000000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="3"
+            android:singleLine="true"
+            android:textColor="#ffffffff"
+            android:textSize="14sp" />
+        
+        <Button
+                android:id="@+id/btn_shuffle"
+                style="@style/musicplayer_action_btn"
+                android:drawableTop="@drawable/btn_action_shuffle"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/edge_margin"
+                android:onClick="onShuffleClick"
+                android:text="@string/shuffle"/>
+    </RelativeLayout>
+
+    <!-- Album Cover -->
+
+    <ImageView
+        android:id="@+id/media_song_image"
+        android:layout_width="@dimen/media_song_image_size"
+        android:layout_height="@dimen/media_song_image_size"
+        android:layout_below="@id/media_titlebar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/edge_margin"
+        android:src="@drawable/default_pic_4" >
+    </ImageView>
+
+    <TextView
+        android:id="@+id/media_state"
+        android:layout_width="wrap_content"
+        android:layout_height="36dip"
+        android:layout_below="@id/media_titlebar"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:padding="4dip"
+        android:shadowColor="#ff000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="3"
+        android:singleLine="true"
+        android:visibility="gone"
+        android:text="wait for....."
+        android:textSize="20sp" />
+
+    <!-- Lrc View -->
+
+   
+
+    <!-- Music Seek Bar -->
+
+    <RelativeLayout
+        android:id="@+id/media_seekbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <TextView
+            android:id="@+id/totaltime"
+            android:layout_width="48dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="6dip"
+            android:padding="4dip"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_white"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/currenttime"
+            android:layout_width="48dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="6dip"
+            android:gravity="right"
+            android:padding="4dip"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_white"
+            android:textSize="12sp" />
+
+        <SeekBar
+            android:id="@android:id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="8dip"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:layout_toLeftOf="@id/totaltime"
+            android:layout_toRightOf="@id/currenttime"
+            android:progressDrawable="@drawable/music_seekbar_bg"
+            android:secondaryProgress="-1"
+            android:thumbOffset="18dip" />
+    </RelativeLayout>
+
+    <!-- Music Control -->
+
+    <TableLayout
+        android:id="@+id/media_controls"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/media_seekbar" >
+
+        <TableRow>
+
+            <ImageButton
+                android:id="@+id/prev"
+                style="@style/musicplayer_action_btn"
+                android:layout_gravity="top"
+                android:onClick="onPrevClick"
+                android:src="@drawable/btn_pre" />
+
+            <ImageButton
+                android:id="@+id/pause"
+                style="@style/musicplayer_action_btn"
+                android:layout_gravity="top"
+                android:onClick="onPlayClick"
+                android:src="@drawable/btn_play" />
+
+            <ImageButton
+                android:id="@+id/next"
+                style="@style/musicplayer_action_btn"
+                android:layout_gravity="top"
+                android:onClick="onNextClick"
+                android:src="@drawable/btn_next" />
+        </TableRow>
+    </TableLayout>
+
+    <de.wangchao.musicplayer.lyric.LyricView
+        android:id="@+id/media_lrcview"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/media_controls"
+        android:layout_below="@id/media_song_image" />
+
+</RelativeLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mini_panel_layout_height"
+    android:background="@drawable/mini_player_panel_bg"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="9.4dip" >
+
+    <ImageView
+        android:id="@+id/mini_album"
+        android:layout_width="@dimen/mini_album_layout_width"
+        android:layout_height="@dimen/mini_album_layout_height"
+        android:layout_marginLeft="@dimen/mini_album_margin"
+        android:src="@drawable/mini_default_album" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/txt_song"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:paddingLeft="@dimen/mini_song_padding_left"
+            android:singleLine="true"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_large" />
+
+        <TextView
+            android:id="@+id/txt_singer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:paddingBottom="@dimen/mini_singer_padding_bottom"
+            android:paddingLeft="@dimen/mini_singer_padding_left"
+            android:paddingTop="@dimen/mini_singer_padding_top"
+            android:singleLine="true"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/mini_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/btn_pre"
+            android:layout_width="@dimen/mini_btn_size"
+            android:layout_height="@dimen/mini_btn_size"
+            android:background="@null"
+            android:src="@drawable/btn_pre" />
+
+        <ImageButton
+            android:id="@+id/btn_play"
+            android:layout_width="@dimen/mini_btn_size"
+            android:layout_height="@dimen/mini_btn_size"
+            android:layout_marginLeft="@dimen/mini_playbutton_margin_left"
+            android:layout_marginRight="@dimen/mini_playbutton_margin_right"
+            android:background="@null"
+            android:src="@drawable/btn_play" />
+
+        <ImageButton
+            android:id="@+id/btn_stop"
+            android:layout_width="@dimen/mini_btn_size"
+            android:layout_height="@dimen/mini_btn_size"
+            android:layout_marginLeft="@dimen/mini_playbutton_margin_left"
+            android:layout_marginRight="@dimen/mini_playbutton_margin_right"
+            android:background="@null"
+            android:src="@drawable/btn_pause"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/btn_next"
+            android:layout_width="@dimen/mini_btn_size"
+            android:layout_height="@dimen/mini_btn_size"
+            android:layout_marginRight="@dimen/mini_nextbutton_margin_right"
+            android:background="@null"
+            android:src="@drawable/btn_next" />
+    </LinearLayout>
+
+</LinearLayout>

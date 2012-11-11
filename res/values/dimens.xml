@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="edge_margin">10dp</dimen>
+    <!-- online music activity -->
+    <dimen name="mini_album_margin">4.7dip</dimen>
+    <dimen name="mini_album_layout_width">47dip</dimen>
+    <dimen name="mini_album_layout_height">47dip</dimen>
+    <dimen name="mini_text_size">10.7dip</dimen>
+    <dimen name="mini_song_padding_top">5dip</dimen>
+    <dimen name="mini_singer_padding_top">5dip</dimen>
+    <dimen name="mini_song_padding_left">9.4dip</dimen>
+    <dimen name="mini_singer_padding_left">9.4dip</dimen>
+    <dimen name="mini_singer_padding_bottom">3dip</dimen>
+    <dimen name="mini_margin_top">14dip</dimen>
+    <dimen name="mini_prebutton_margin_left">10dip</dimen>
+    <dimen name="mini_nextbutton_margin_right">10dip</dimen>
+    <dimen name="mini_playbutton_margin_left">10dip</dimen>
+    <dimen name="mini_playbutton_margin_right">10dip</dimen>
+    <dimen name="mini_panel_layout_height">57.4dip</dimen>
+    <dimen name="mini_btn_size">50dip</dimen>
+    <dimen name="text_size_large">18sp</dimen>
+    <dimen name="text_size_medium">15sp</dimen>
+    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="divider_height">1.0dip</dimen>
+    <dimen name="list_item_height">50dip</dimen>
+    <dimen name="list_img_width">40dip</dimen>
+    <dimen name="list_img_height">40dip</dimen>
+    <dimen name="list_select_margin_right">15dip</dimen>
+    <dimen name="list_select_width">20dip</dimen>
+    <dimen name="list_select_height">20dip</dimen>
+    <dimen name="list_img_margin_right">10.7dip</dimen>
+    <dimen name="list_img_margin_left">10.7dip</dimen>
+    <dimen name="list_txt_margin_top">3dip</dimen>
+    
+    <!-- Seek Bar Dialog -->
+    <dimen name="seek_bar_dialog_padding">20dip</dimen>
+    <dimen name="seek_bar_dialog_width">250dip</dimen>
+
+    <!-- music player activity -->
+    <dimen name="media_titlebar_height">53dp</dimen>
+    <dimen name="media_titlebtn_size">40dp</dimen>
+    <dimen name="media_musicactions_height">42.7dp</dimen>
+    <dimen name="media_song_image_size">129dp</dimen>
+  
+
+</resources>
