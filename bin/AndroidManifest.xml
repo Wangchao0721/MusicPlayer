@@ -20,15 +20,19 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <application android:label="@string/app_name"
         android:icon="@drawable/ic_launcher"
-        android:theme="@style/AppTheme" android:name=".OnlineMusicApplication">
-        <activity android:name=".activity.OnlineMusicList">
-            <intent-filter>
+        android:theme="@android:style/Theme.Black.NoTitleBar" android:name=".OnlineMusicApplication">
+        <activity android:name=".activity.OnlineMusicActivity"></activity>
+        <activity android:name=".activity.MediaPlayerActivity"></activity>
+        <service android:name=".service.MusicService"></service>
+        <activity android:name=".activity.MainTabActivity">
+             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MediaPlayerActivity"></activity>
-        <service android:name=".service.MusicService"></service>
+        <activity android:name=".activity.MyFavoriteActivity"></activity>
+        <activity android:name=".activity.LocalMusicActivity"></activity>
+        <activity android:name=".activity.LocalMusicListActivity"></activity>
     </application>
 
 </manifest>

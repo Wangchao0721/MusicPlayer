@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/music_bottom_bg" >
+
+        <ImageView
+            android:id="@+id/iv_header_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/edge_margin"
+            android:layout_marginRight="@dimen/edge_margin"
+            android:src="@drawable/left_expand" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@+id/iv_header_back"
+            android:gravity="center_vertical"
+            android:text="28"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/text_white"
+            android:textSize="28sp" />
+
+        <Button
+            android:id="@+id/btn_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/iv_header_back"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/edge_margin"
+            android:background="@drawable/btn_list" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_count"
+            android:layout_toRightOf="@+id/tv_count"
+            android:gravity="bottom"
+            android:paddingLeft="5dip"
+            android:text="首歌曲"
+            android:textColor="@color/text_white"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

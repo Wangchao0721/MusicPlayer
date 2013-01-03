@@ -4,14 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+    <include
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        layout="@layout/list_header" />
     <ListView
         android:id="@+id/listView_music"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/panel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" >
+        android:layout_above="@id/panel"
+        android:layout_below="@id/header"
+        android:layout_alignParentLeft="true" >
 
     </ListView>
 
@@ -23,5 +28,7 @@
         android:layout_alignParentLeft="true"
         layout="@layout/mini_player_panel" >
     </include>
+
+   
 
 </RelativeLayout>

@@ -37,6 +37,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -112,6 +113,7 @@ public class MediaPlayerActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
@@ -324,7 +326,22 @@ public class MediaPlayerActivity extends Activity {
 
         super.onBackPressed();
     }
-
+    
+    public void onPlayListClick(View v){
+    	/*Intent intent=new Intent(MediaPlayerActivity.this,LocalMusicListActivity.class);
+    	intent.putExtra("id", "playlist");
+    	startActivity(intent);*/
+        Toast.makeText(getApplicationContext(), "undone", Toast.LENGTH_SHORT).show();
+    }
+    
+    public void onFavClick(View v){
+    	Toast.makeText(getApplicationContext(), "undone", Toast.LENGTH_SHORT).show();
+    }
+    
+    public void onKmusicClick(View v){
+    	Toast.makeText(getApplicationContext(), "undone", Toast.LENGTH_SHORT).show();
+    }
+    
     public void onPlayClick(View v) {
 
         if (mService != null & mService.isPrepared()) {

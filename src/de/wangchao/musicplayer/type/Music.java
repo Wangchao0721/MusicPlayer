@@ -12,28 +12,28 @@ public class Music implements Serializable {
 
     private int songid;
     private String songname;
-    private int sid;
-    private int tid;
+    //private int sid;
+    //private int tid;
     private String album;
     private int length;
     private String webfile;
     private String lrcurl;
-    private String accurl = "";
-    private String addTime; // TODO can't parse date
-    private String updateTime;
-    private int uid;
+    //private String accurl = "";
+    //private String addTime; // TODO can't parse date
+    //private String updateTime;
+    //private int uid;
     private String pic;
-    private int istop;
-    private int ishot;
-    private int views;
-    private int singcount;
-    private int ordernum;
+    //private int istop;
+    //private int ishot;
+    //private int views;
+    //private int singcount;
+    //private int ordernum;
     private String sname;
 
-    @SuppressWarnings("unused")
-    private int ext1;
-    @SuppressWarnings("unused")
-    private String ext2;
+    //@SuppressWarnings("unused")
+    //private int ext1;
+    //@SuppressWarnings("unused")
+    //private String ext2;
 
     public int getSongId() {
 
@@ -55,7 +55,7 @@ public class Music implements Serializable {
         this.songname = songName;
     }
 
-    public int getSingerId() {
+   /* public int getSingerId() {
 
         return sid;
     }
@@ -73,7 +73,7 @@ public class Music implements Serializable {
     public void setThemeId(int tid) {
 
         this.tid = tid;
-    }
+    }*/
 
     public String getAlbum() {
 
@@ -115,7 +115,7 @@ public class Music implements Serializable {
         this.lrcurl = lrcUrl;
     }
 
-    public String getAccUrl() {
+   /* public String getAccUrl() {
 
         return accurl;
     }
@@ -143,7 +143,7 @@ public class Music implements Serializable {
     public void setUpdateTime(String updateTime) {
 
         this.updateTime = updateTime;
-    }
+    }*/
 
     public String getPic() {
 
@@ -155,7 +155,7 @@ public class Music implements Serializable {
         this.pic = pic;
     }
 
-    public int getIsTop() {
+    /*public int getIsTop() {
 
         return istop;
     }
@@ -223,7 +223,7 @@ public class Music implements Serializable {
     public void setUserId(int uid) {
 
         this.uid = uid;
-    }
+    }*/
 
     public String getSingerName() {
 

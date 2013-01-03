@@ -36,8 +36,8 @@ public class LyricView extends TextView {
     private int mY;
     private long currentDunringTime; // 当前行歌词持续的时间，用该时间来sleep
     private float middleY;// y轴中间
-    private int DSIZE=15;//歌词的字体大小
-    private static final int DY=20; // 每一行的间隔
+    private int DSIZE=25;//歌词的字体大小
+    private static final int DY=30; // 每一行的间隔
 
    
 
