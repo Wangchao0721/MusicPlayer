@@ -28,6 +28,7 @@ import android.os.PowerManager.WakeLock;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -96,6 +97,7 @@ public class MusicService extends Service implements IMusicService {
     private MultiPlayer mPlayer;
     private Track mTrackToPlay;
     private ArrayList<Track> mPlayList;
+    private ArrayList<Integer> playedId;
     //private ArrayList<Track> mAutoShuffleList;
     private int mPlayListLen;
     private int mPlayPos;
@@ -137,6 +139,12 @@ public class MusicService extends Service implements IMusicService {
     private Method mStopForeground;
     private Object[] mStartForegroundArgs = new Object[2];
     private Object[] mStopForegroundArgs = new Object[1];
+    
+    public static final int REPEAT_ONE=0;
+    public static final int REPEAT_ALL=1;
+    public static final int PLAY_ONE=2;
+    public static final int PLAY_ALL=3;
+    private int repeat_mode=REPEAT_ALL;
 
     private Handler mMediaplayerHandler = new Handler() {
         @Override
@@ -477,7 +485,8 @@ public class MusicService extends Service implements IMusicService {
     }
 
     private void openCurrent() {
-
+    	if(!playedId.contains(mPlayPos))
+            playedId.add(mPlayPos);
         mTrackToPlay = mPlayList.get(mPlayPos);
         openFile(mTrackToPlay);
     }
@@ -501,12 +510,13 @@ public class MusicService extends Service implements IMusicService {
 
             if (list.size() != 0) {
                 mPlayList = list;
-
                 mPlayListLen = mPlayList.size();
                 mPlayPos = position;
+                if(!playedId.contains(position))
+                    playedId.add(position);
                 mTrackToPlay = mPlayList.get(mPlayPos);
                 openFile(mTrackToPlay);
-
+                
             }
         }
     }
@@ -514,12 +524,9 @@ public class MusicService extends Service implements IMusicService {
     @Override
     public void setOnlinePlayList(ArrayList<Track> list) {
 
-        // determine whether the list is new or not
-        int listlength = list.size();
-        boolean newlist = true;
-
+        playedId=new ArrayList<Integer>();
         if (list.size() != 0) {
-            mPlayList = list;
+        	mPlayList = list;
             mPlayListLen = list.size();
         }
     }
@@ -612,7 +619,7 @@ public class MusicService extends Service implements IMusicService {
                     PendingIntent.FLAG_UPDATE_CURRENT);
             Notification notification = new Notification();
             notification.tickerText = getString(R.string.app_name);
-            notification.icon = R.drawable.ic_launcher;
+            notification.icon = R.drawable.mini_default_album;
             notification.flags |= Notification.FLAG_ONGOING_EVENT;
             notification.setLatestEventInfo(getApplicationContext(), getString(R.string.app_name),
                     getString(R.string.playing) + mTrackToPlay.getTrackName(), pi);
@@ -667,7 +674,7 @@ public class MusicService extends Service implements IMusicService {
     }
 
     @Override
-    public void prev() {
+    public void prev(boolean prev) {
 
         synchronized (this) {
             if (mPlayListLen <= 0) {
@@ -680,22 +687,35 @@ public class MusicService extends Service implements IMusicService {
 
                 // Make sure shuffle to song that not current song
                 while (mPlayPos == currentPos) {
+                	if(mPlayListLen==1)
+                		break;
                     mPlayPos = mRand.nextInt(mPlayListLen);
                 }
 
                 //Tools.debugLog(TAG, "Shuffle to " + mPlayPos);
             } else {
-                if (mPlayPos > 0) {
-                    mPlayPos--;
-                } else {
-                   //Tools.debugLog(TAG, "This is first one");
-                    mPlayPos = mPlayListLen - 1;
-                }
+            	if(prev){//prev
+	                if (mPlayPos > 0) {
+	                    mPlayPos--;
+	                } else {
+	                   //Tools.debugLog(TAG, "This is first one");
+	                    mPlayPos = mPlayListLen - 1;
+	                }
+            	}
+            	else{//next
+            		 if (mPlayPos < mPlayListLen - 1) {
+                      	mPlayPos++;
+                      } else if (mPlayPos >= mPlayListLen - 1) {
+                        //  Tools.debugLog(TAG, "This is Last one");
+                          mPlayPos = 0;
+                      }
+            	}
             }
 
             stop();
             openCurrent();
             notifyChange(META_CHANGED);
+            playedId.clear();
         }
 
     }
@@ -708,32 +728,82 @@ public class MusicService extends Service implements IMusicService {
                 //Tools.debugLog(TAG, "No play queue");
                 return;
             }
-
-            if (mShuffleMode == SHUFFLE_NORMAL) {
-               // Tools.debugLog(TAG, "Current is " + mPlayPos);
-                int currentPos = mPlayPos;
-                mPlayPos = mRand.nextInt(mPlayListLen);
-
-                // Make sure shuffle to song that not current song
-                while (mPlayPos == currentPos) {
-                    mPlayPos = mRand.nextInt(mPlayListLen);
-                }
-
-                //Tools.debugLog(TAG, "Shuffle to " + mPlayPos);
-            } else {
-                if (mPlayPos < mPlayListLen - 1) {
-                    mPlayPos++;
-                } else if (mPlayPos >= mPlayListLen - 1) {
-                  //  Tools.debugLog(TAG, "This is Last one");
-                    mPlayPos = 0;
-                }
+           // Toast.makeText(getApplicationContext(), playedId.toString(), Toast.LENGTH_SHORT).show();
+            if(repeat_mode==REPEAT_ONE){
+        		//repeat current song
+        	}
+            if(repeat_mode==PLAY_ONE){
+            	//stop music
+            	stop();
+            	return;
             }
+            if(repeat_mode==REPEAT_ALL){
+            	if(playedId.size()==mPlayListLen)
+                    playedId.clear();
+            	
+            	if (mShuffleMode == SHUFFLE_NORMAL) {
+                    // Tools.debugLog(TAG, "Current is " + mPlayPos);
+                     int currentPos = mPlayPos;
+                     mPlayPos = mRand.nextInt(mPlayListLen);
+                     // Make sure shuffle to song that not current song
+                     while (playedId.contains(mPlayPos)) {
+                      	if(mPlayListLen==1)
+                      		 break;
+                          mPlayPos = mRand.nextInt(mPlayListLen);
+                      }
+                      
+                 } else {
+                     if (mPlayPos < mPlayListLen - 1) {
+                     	mPlayPos++;
+                     } else if (mPlayPos >= mPlayListLen - 1) {
+                       //  Tools.debugLog(TAG, "This is Last one");
+                         mPlayPos = 0;
+                     }
+                 }
+            }
+            if(repeat_mode==PLAY_ALL){
+            	
+            	if(playedId.size()==mPlayListLen){
+            	 stop();
+               	 return;
+                }
+            	if (mShuffleMode == SHUFFLE_NORMAL) {
+                    // Tools.debugLog(TAG, "Current is " + mPlayPos);
+                     int currentPos = mPlayPos;
+                     mPlayPos = mRand.nextInt(mPlayListLen);
 
+                     // Make sure shuffle to song that not current song
+                     while (playedId.contains(mPlayPos)) {
+                     	if(mPlayListLen==1)
+                     		 break;
+                         mPlayPos = mRand.nextInt(mPlayListLen);
+                     }
+                 } else {
+                     if (mPlayPos < mPlayListLen - 1) {
+                     	mPlayPos++;
+                     } else if (mPlayPos >= mPlayListLen - 1) {
+                       //  Tools.debugLog(TAG, "This is Last one");
+                    	 mPlayPos=0;
+                     }
+                 }
+            }
+            
             stop();
             openCurrent();
             notifyChange(META_CHANGED);
         }
 
+    }
+    
+    @Override
+    public void setRepeatMode(int mode){
+    	repeat_mode=mode;
+    	 notifyChange(REPEATMODE_CHANGED);
+    }
+    
+    @Override
+    public int getRepeatMode(){
+    	return repeat_mode;
     }
 
     @Override

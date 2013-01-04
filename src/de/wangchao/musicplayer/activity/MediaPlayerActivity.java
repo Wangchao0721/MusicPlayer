@@ -10,6 +10,7 @@ import de.wangchao.musicplayer.download.DownloadTaskListener;
 
 import de.wangchao.musicplayer.service.MusicService;
 import de.wangchao.musicplayer.service.MusicService.MusicBinder;
+import de.wangchao.musicplayer.type.Track;
 
 import de.wangchao.musicplayer.util.ImageCache;
 import de.wangchao.musicplayer.util.Tools;
@@ -49,6 +50,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 
 
 
@@ -68,6 +70,7 @@ public class MediaPlayerActivity extends Activity {
     private ImageButton mPauseButton;
     private ImageButton mNextButton;
     private Button mShuffleButton;
+    private Button mRepeatButton;
     private TextView mCurrentTime;
     private TextView mTotalTime;
     private ProgressBar mProgress;
@@ -97,6 +100,7 @@ public class MediaPlayerActivity extends Activity {
 
     private static final int REFRESH_TIME = 1;
     private static final int REFRESH_LRC = 5;
+    public static ArrayList<Track> playList=new ArrayList<Track>();
 
     /************************************************************************/
     /* CONSTANTS deal with Lyric process */
@@ -131,6 +135,7 @@ public class MediaPlayerActivity extends Activity {
 
        
         mShuffleButton = (Button) findViewById(R.id.btn_shuffle);
+        mRepeatButton=(Button)findViewById(R.id.btn_repeatmode);
         mShffleDrawableTop = getResources().getDrawable(R.drawable.btn_action_shuffle);
         mShffleDrawableTop.setBounds(0, 0, mShffleDrawableTop.getMinimumWidth(),
                 mShffleDrawableTop.getMinimumHeight());
@@ -178,6 +183,7 @@ public class MediaPlayerActivity extends Activity {
         f.addAction(MusicService.CACHESTATE_CHANGED);
         f.addAction(MusicService.META_CHANGED);
         f.addAction(MusicService.SHUFFLEMODE_CHANGED);
+        f.addAction(MusicService.REPEATMODE_CHANGED);
         registerReceiver(mStatusListener, new IntentFilter(f));
 
         updateTrackInfo();
@@ -312,6 +318,10 @@ public class MediaPlayerActivity extends Activity {
                     Tools.debugLog(TAG, "SHUFFLEMODE_CHANGED");
                     setShuffleButtonImage();
                 }
+                
+                if(action.equals(MusicService.REPEATMODE_CHANGED)){
+                	setRepeatModeText();
+                }
 
             }
 
@@ -328,18 +338,49 @@ public class MediaPlayerActivity extends Activity {
     }
     
     public void onPlayListClick(View v){
-    	/*Intent intent=new Intent(MediaPlayerActivity.this,LocalMusicListActivity.class);
+    	playList=mService.getOnlinePlayList();
+    	if(playList==null||playList.size()==0){
+    		Toast.makeText(getApplicationContext(), "没有歌曲在播放", Toast.LENGTH_SHORT).show();
+    		return;
+    	}
+    	Intent intent=new Intent(MediaPlayerActivity.this,LocalMusicListActivity.class);
     	intent.putExtra("id", "playlist");
-    	startActivity(intent);*/
-        Toast.makeText(getApplicationContext(), "undone", Toast.LENGTH_SHORT).show();
+    	startActivity(intent);
     }
     
     public void onFavClick(View v){
     	Toast.makeText(getApplicationContext(), "undone", Toast.LENGTH_SHORT).show();
     }
     
-    public void onKmusicClick(View v){
-    	Toast.makeText(getApplicationContext(), "undone", Toast.LENGTH_SHORT).show();
+    public void onRepeatClick(View v){
+    	 int mode=mService.getRepeatMode();
+    	 if(mode==MusicService.PLAY_ONE)
+    		 mService.setRepeatMode(MusicService.REPEAT_ONE);
+    	 if(mode==MusicService.REPEAT_ONE)
+    		 mService.setRepeatMode(MusicService.PLAY_ALL);
+    	 if(mode==MusicService.PLAY_ALL)
+    		 mService.setRepeatMode(MusicService.REPEAT_ALL);
+    	 if(mode==MusicService.REPEAT_ALL)
+    		 mService.setRepeatMode(MusicService.PLAY_ONE);
+    }
+    
+    private void setRepeatModeText(){
+    	switch (mService.getRepeatMode()) {
+	   	 case MusicService.PLAY_ONE:
+	   		 mRepeatButton.setText(getString(R.string.onePlay));
+	   		 break;
+	   	 case MusicService.REPEAT_ONE:
+	   		 mRepeatButton.setText(getString(R.string.oneRepeat));
+	   		 break;
+	   	 case MusicService.PLAY_ALL:
+	   		 mRepeatButton.setText(getString(R.string.allPlay));	   	
+	   		 break;
+	   	 case MusicService.REPEAT_ALL:
+	   	     mRepeatButton.setText(getString(R.string.allRepeat));
+	   		 break; 
+   		 default:
+   			 break;
+   	 }
     }
     
     public void onPlayClick(View v) {
@@ -361,7 +402,7 @@ public class MediaPlayerActivity extends Activity {
         if (mService == null) {
             return;
         }
-        mService.prev();
+        mService.prev(true);
     }
 
     public void onNextClick(View v) {
@@ -369,7 +410,7 @@ public class MediaPlayerActivity extends Activity {
         if (mService == null) {
             return;
         }
-        mService.next();
+        mService.prev(false);
     }
 
     public void setPauseButtonImage() {
@@ -396,11 +437,11 @@ public class MediaPlayerActivity extends Activity {
             return;
         }
         switch (mService.getShuffleMode()) {
-            case MusicService.SHUFFLE_NONE:
+            case MusicService.SHUFFLE_NORMAL:
                 mShuffleButton.setCompoundDrawables(null, mShffleDrawableTop, null, null);
                 mShuffleButton.setText(getString(R.string.shuffle));
                 break;
-            case MusicService.SHUFFLE_NORMAL:
+            case MusicService.SHUFFLE_NONE:
                 mShuffleButton.setCompoundDrawables(null, mSequenceDrawableTop, null, null);
                 mShuffleButton.setText(getString(R.string.sequence));
                 break;

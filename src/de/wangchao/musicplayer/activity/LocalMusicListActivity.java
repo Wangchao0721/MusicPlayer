@@ -103,12 +103,18 @@ public class LocalMusicListActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				ArrayList<Track> playlist=mService.getOnlinePlayList();
-				ArrayList<Map<String,Object>> maplist=new ArrayList<Map<String,Object>>();
-				if(playlist==null||playlist.size()==0){
-					Toast.makeText(getApplicationContext(), "没有歌曲在播放", Toast.LENGTH_SHORT).show();
-					return;
+				ArrayList<Track> playlist;
+				if(getIntent().getStringExtra("id").equals("playlist")){
+					playlist=MediaPlayerActivity.playList;
 				}
+				else{
+				   playlist=mService.getOnlinePlayList();
+				}
+				if(playlist==null||playlist.size()==0){
+				      Toast.makeText(getApplicationContext(), "没有歌曲在播放", Toast.LENGTH_SHORT).show();
+					  return;
+				}
+				ArrayList<Map<String,Object>> maplist=new ArrayList<Map<String,Object>>();
 				for(int i=0;i<playlist.size();i++){
 					Music music=Music.parseTrack(playlist.get(i));
 					Map<String,Object> map=new HashMap<String,Object>();
@@ -178,8 +184,7 @@ public class LocalMusicListActivity extends Activity{
 	 }
      
      private void init_list(){
-    	    ArrayList<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
-    	    adapter.setList(list,"");
+    	    adapter.setList(new ArrayList<Map<String,Object>>(),"");
 			String id = getIntent().getStringExtra("id");
 			if(id.equals("song")){
 				adapter.setList(LocalMusicActivity.allMusicMap,id);
@@ -190,11 +195,13 @@ public class LocalMusicListActivity extends Activity{
 			if(id.equals("album")){
 				adapter.setList(LocalMusicActivity.albumMusicMap,id);
 			}
+			
+			lv_music.setAdapter(adapter);
+			setHeader();
+			
 			if(id.equals("playlist")){
 				btn_playlist.performClick();
 			}
-			lv_music.setAdapter(adapter);
-			setHeader();
 			
      }
      

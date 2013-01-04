@@ -30,7 +30,7 @@ public interface IMusicService {
 
     void play();
 
-    void prev();
+    void prev(boolean prev);
 
     void next();
 
@@ -73,4 +73,10 @@ public interface IMusicService {
     // int getRepeatMode();
     // int getMediaMountedCount();
     // int getAudioSessionId();
+
+	void setRepeatMode(int mode);
+
+	int getRepeatMode();
+
+	
 }

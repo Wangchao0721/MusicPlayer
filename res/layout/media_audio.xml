@@ -200,20 +200,20 @@
                 android:drawableTop="@drawable/btn_action_shuffle"
                 android:onClick="onShuffleClick"
                 android:text="@string/shuffle" />
-
+
+            <Button
+                android:id="@+id/btn_repeatmode"
+                style="@style/musicplayer_action_btn"
+                android:drawableTop="@drawable/btn_action_share"
+                android:onClick="onRepeatClick"
+                android:text="@string/allRepeat" />
+           
             <Button
                 android:id="@+id/btn_fav"
                 style="@style/musicplayer_action_btn"
                 android:drawableTop="@drawable/btn_action_fav"
                 android:onClick="onFavClick"
                 android:text="@string/fav" />
-           
-            <Button
-                android:id="@+id/btn_kmusic"
-                style="@style/musicplayer_action_btn"
-                android:drawableTop="@drawable/btn_action_fav"
-                android:onClick="onKmusicClick"
-                android:text="@string/shuffle" />
 
         </TableRow>
     </TableLayout>

@@ -2,7 +2,7 @@
 <resources>
 
     <string name="hello">Hello World, MediaPlayerActivity!</string>
-    <string name="app_name">在线音乐</string>
+    <string name="app_name">MusicPlayer</string>
     <string name="foreground_service_started">Service is in the foreground</string>
     <string name="wait">Wait for....</string>
     <string name="loading">Loading.....</string>
@@ -43,4 +43,8 @@
     <string name="lyric_size">20</string>
     <string name="lyric_distance">50</string>
     <string name="fav">收藏</string>
+    <string name="allRepeat">全曲循环</string>
+    <string name="oneRepeat">单曲循环</string>
+    <string name="onePlay">单曲播放</string>
+    <string name="allPlay">全曲播放</string>
 </resources>

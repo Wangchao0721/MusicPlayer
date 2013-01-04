@@ -168,7 +168,7 @@ public class MiniPlayPannelWrapper {
             @Override
             public void onClick(View v) {
 
-                service.prev();
+                service.prev(true);
                 bindService(service);
             }
         });
@@ -178,7 +178,7 @@ public class MiniPlayPannelWrapper {
             @Override
             public void onClick(View v) {
 
-                service.next();
+                service.prev(false);
                 bindService(service);
             }
         });
