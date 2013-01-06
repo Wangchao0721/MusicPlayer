@@ -8,7 +8,6 @@ import de.wangchao.musicplayer.R;
 import de.wangchao.musicplayer.service.MusicService;
 import de.wangchao.musicplayer.service.MusicService.MusicBinder;
 import de.wangchao.musicplayer.type.Music;
-import de.wangchao.musicplayer.type.Track;
 import de.wangchao.musicplayer.widget.MiniPlayPannelWrapper;
 import de.wangchao.musicplayer.widget.MusicListAdapter;
 import de.wangchao.musicplayer.widget.MiniPlayPannelWrapper.OnStatusChangedListener;
@@ -39,7 +38,7 @@ public class LocalMusicListActivity extends Activity{
 	 private boolean mBound=false;
 	 private ListView lv_music;
 	 private MusicService mService;
-     private ArrayList<Track> mTrackList = new ArrayList<Track>();
+     private ArrayList<Music> mTrackList = new ArrayList<Music>();
 	 private MiniPlayPannelWrapper miniPlayPannelWrapper;
 	 private MusicListAdapter adapter;
 	 private boolean inSinger=false;
@@ -103,7 +102,7 @@ public class LocalMusicListActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				ArrayList<Track> playlist;
+				ArrayList<Music> playlist;
 				if(getIntent().getStringExtra("id").equals("playlist")){
 					playlist=MediaPlayerActivity.playList;
 				}
@@ -116,7 +115,7 @@ public class LocalMusicListActivity extends Activity{
 				}
 				ArrayList<Map<String,Object>> maplist=new ArrayList<Map<String,Object>>();
 				for(int i=0;i<playlist.size();i++){
-					Music music=Music.parseTrack(playlist.get(i));
+					Music music=playlist.get(i);
 					Map<String,Object> map=new HashMap<String,Object>();
 					map.put("txt1", music.getSongName());
 					map.put("txt2", music.getSingerName());
@@ -143,7 +142,7 @@ public class LocalMusicListActivity extends Activity{
 				   mTrackList.clear();
 				   ArrayList<Map<String,Object>>list=adapter.getList();
 				   for(int i=0;i<list.size();i++){
-					   mTrackList.add(Track.parseMusic((Music)list.get(i).get("music")));
+					   mTrackList.add((Music)list.get(i).get("music"));
 				   }
 				   mService.setOnlinePlayList(mTrackList);
 				   Intent intent = new Intent(LocalMusicListActivity.this,MediaPlayerActivity.class);

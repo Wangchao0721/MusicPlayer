@@ -3,8 +3,7 @@ package de.wangchao.musicplayer.service;
 
 import de.wangchao.musicplayer.R;
 import de.wangchao.musicplayer.activity.MediaPlayerActivity;
-import de.wangchao.musicplayer.type.Track;
-//import de.wangchao.musicplayer.util.Tools;
+import de.wangchao.musicplayer.type.Music;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -95,8 +94,8 @@ public class MusicService extends Service implements IMusicService {
     /* Values about music play */
     /************************************************************************/
     private MultiPlayer mPlayer;
-    private Track mTrackToPlay;
-    private ArrayList<Track> mPlayList;
+    private Music mTrackToPlay;
+    private ArrayList<Music> mPlayList;
     private ArrayList<Integer> playedId;
     //private ArrayList<Track> mAutoShuffleList;
     private int mPlayListLen;
@@ -476,12 +475,12 @@ public class MusicService extends Service implements IMusicService {
      * @see com.media.service.IMusicService#openFile(de.wangchao.musicplayer.type.Track)
      */
     @Override
-    public void openFile(Track track) {
+    public void openFile(Music track) {
 
         if (null == track) {
             return;
         }
-        mPlayer.setDataSource(mTrackToPlay.getPath());
+        mPlayer.setDataSource(mTrackToPlay.getWebFile());
     }
 
     private void openCurrent() {
@@ -499,7 +498,7 @@ public class MusicService extends Service implements IMusicService {
      * @param list The new list of tracks.
      */
     @Override
-    public void open(ArrayList<Track> list, int position) {
+    public void open(ArrayList<Music> list, int position) {
 
         synchronized (this) {
             // TODO Deal with shuffle mode
@@ -522,7 +521,7 @@ public class MusicService extends Service implements IMusicService {
     }
 
     @Override
-    public void setOnlinePlayList(ArrayList<Track> list) {
+    public void setOnlinePlayList(ArrayList<Music> list) {
 
         playedId=new ArrayList<Integer>();
         if (list.size() != 0) {
@@ -532,7 +531,7 @@ public class MusicService extends Service implements IMusicService {
     }
 
     @Override
-    public ArrayList<Track> getOnlinePlayList() {
+    public ArrayList<Music> getOnlinePlayList() {
 
         if (null == mPlayList) {
             return null;
@@ -541,7 +540,7 @@ public class MusicService extends Service implements IMusicService {
     }
 
     @Override
-    public Track getTrackToPlay() {
+    public Music getTrackToPlay() {
 
         return mTrackToPlay;
     }
@@ -622,7 +621,7 @@ public class MusicService extends Service implements IMusicService {
             notification.icon = R.drawable.mini_default_album;
             notification.flags |= Notification.FLAG_ONGOING_EVENT;
             notification.setLatestEventInfo(getApplicationContext(), getString(R.string.app_name),
-                    getString(R.string.playing) + mTrackToPlay.getTrackName(), pi);
+                    getString(R.string.playing) + mTrackToPlay.getSongName(), pi);
             startForegroundCompat(R.string.foreground_service_started, notification);
 
             if (!mIsSupposedToBePlaying) {
@@ -812,7 +811,7 @@ public class MusicService extends Service implements IMusicService {
         if (mTrackToPlay == null) {
             return null;
         }
-        return mTrackToPlay.getTrackName();
+        return mTrackToPlay.getSongName();
 
     }
 
@@ -822,7 +821,7 @@ public class MusicService extends Service implements IMusicService {
         if (mTrackToPlay == null) {
             return null;
         }
-        return mTrackToPlay.getAlbumName();
+        return mTrackToPlay.getAlbum();
     }
 
     @Override
@@ -831,7 +830,7 @@ public class MusicService extends Service implements IMusicService {
         if (mTrackToPlay == null) {
             return null;
         }
-        return mTrackToPlay.getArtistName();
+        return mTrackToPlay.getSingerName();
     }
 
     @Override
@@ -840,7 +839,7 @@ public class MusicService extends Service implements IMusicService {
         if (mTrackToPlay == null) {
             return null;
         }
-        return mTrackToPlay.getPath();
+        return mTrackToPlay.getWebFile();
     }
 
     @Override
@@ -849,7 +848,7 @@ public class MusicService extends Service implements IMusicService {
         if (mTrackToPlay == null) {
             return null;
         }
-        return mTrackToPlay.getLyricUrl();
+        return mTrackToPlay.getLrcUrl();
     }
 
     @Override
@@ -867,7 +866,7 @@ public class MusicService extends Service implements IMusicService {
             return null;
         }
 
-        return mTrackToPlay.getSongImageUrl();
+        return mTrackToPlay.getPic();
     }
 
     @Override

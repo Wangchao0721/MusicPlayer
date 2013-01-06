@@ -4,13 +4,14 @@ package de.wangchao.musicplayer.activity;
 import de.wangchao.musicplayer.lyric.LyricView;
 import de.wangchao.musicplayer.lyric.PlayListItem;
 import de.wangchao.musicplayer.R;
+import de.wangchao.musicplayer.db.DataBase;
 import de.wangchao.musicplayer.download.DownloadTask;
 import de.wangchao.musicplayer.download.DownloadTaskListener;
 
 
 import de.wangchao.musicplayer.service.MusicService;
 import de.wangchao.musicplayer.service.MusicService.MusicBinder;
-import de.wangchao.musicplayer.type.Track;
+import de.wangchao.musicplayer.type.Music;
 
 import de.wangchao.musicplayer.util.ImageCache;
 import de.wangchao.musicplayer.util.Tools;
@@ -100,7 +101,7 @@ public class MediaPlayerActivity extends Activity {
 
     private static final int REFRESH_TIME = 1;
     private static final int REFRESH_LRC = 5;
-    public static ArrayList<Track> playList=new ArrayList<Track>();
+    public static ArrayList<Music> playList=new ArrayList<Music>();
 
     /************************************************************************/
     /* CONSTANTS deal with Lyric process */
@@ -349,19 +350,23 @@ public class MediaPlayerActivity extends Activity {
     }
     
     public void onFavClick(View v){
-    	Toast.makeText(getApplicationContext(), "undone", Toast.LENGTH_SHORT).show();
+    	DataBase db=new DataBase(MediaPlayerActivity.this);
+    	if(db.addFav(mService.getTrackToPlay()))
+    			Toast.makeText(getApplicationContext(), "收藏成功", Toast.LENGTH_SHORT).show();
+    	else
+    		Toast.makeText(getApplicationContext(), "已收藏", Toast.LENGTH_SHORT).show();
     }
     
     public void onRepeatClick(View v){
     	 int mode=mService.getRepeatMode();
     	 if(mode==MusicService.PLAY_ONE)
-    		 mService.setRepeatMode(MusicService.REPEAT_ONE);
-    	 if(mode==MusicService.REPEAT_ONE)
-    		 mService.setRepeatMode(MusicService.PLAY_ALL);
-    	 if(mode==MusicService.PLAY_ALL)
     		 mService.setRepeatMode(MusicService.REPEAT_ALL);
-    	 if(mode==MusicService.REPEAT_ALL)
+    	 if(mode==MusicService.REPEAT_ONE)
     		 mService.setRepeatMode(MusicService.PLAY_ONE);
+    	 if(mode==MusicService.PLAY_ALL)
+    		 mService.setRepeatMode(MusicService.REPEAT_ONE);
+    	 if(mode==MusicService.REPEAT_ALL)
+    		 mService.setRepeatMode(MusicService.PLAY_ALL);
     }
     
     private void setRepeatModeText(){

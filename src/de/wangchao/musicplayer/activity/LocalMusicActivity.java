@@ -25,16 +25,19 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.database.Cursor;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.MediaStore;
 
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.Toast;
 
 
 
@@ -77,8 +80,12 @@ public class LocalMusicActivity extends Activity{
 	   miniPlayPannelWrapper=new MiniPlayPannelWrapper(panel);
 	   
 	   //lv_music=(ListView)findViewById(R.id.listView1);
+	   DisplayMetrics outMetrics = new   DisplayMetrics();
+	   this.getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+	   int width=outMetrics.widthPixels ;
+	   
 	   GridView grid=(GridView)findViewById(R.id.gridView1);
-	   grid.setAdapter(new GridViewAdapter(this));
+	   grid.setAdapter(new GridViewAdapter(this,(width-4*5)/3));
 	   grid.setOnItemClickListener(new OnItemClickListener(){
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int position,
@@ -157,13 +164,17 @@ public class LocalMusicActivity extends Activity{
 	   //query all music
 		Cursor cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null,
 				 MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
-		
+		if(cursor==null)
+			return;
 		while(cursor.moveToNext()){
 			Music music=new Music();
+			music.setSongId(cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID)));
 			music.setSongName(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE)));
 			music.setSingerName(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST)));
 			music.setAlbum(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM)));
 			music.setWebFile(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)));
+			music.setFormNet(false);
+			music.setLength(cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)));
 			//list.add(music);
 			mMusicList.add(music);
 			
@@ -201,6 +212,7 @@ public class LocalMusicActivity extends Activity{
 		while(cursor.moveToNext()){
 			Map<String,Object> map=new HashMap<String,Object>();
 			String albumname=cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Albums.ALBUM));
+			String albumart=cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Albums.ALBUM_ART));
 			String singer=cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Albums.ARTIST));
 			ArrayList<Music> musiclist=new ArrayList<Music>();
 			for(int i=0;i<mMusicList.size();i++){
@@ -210,9 +222,46 @@ public class LocalMusicActivity extends Activity{
 			}
 			map.put("txt1", albumname);
 			map.put("txt2", singer);
+			map.put("art", albumart);
 			map.put("list", musiclist);
 			albumMusicMap.add(map);
 		}
+		if(mMusicList.size()!=0)
+		Toast.makeText(getApplicationContext(), getAlbumArt(mMusicList.get(0).getSongId()), Toast.LENGTH_SHORT).show();
    }
    
+   public String getAlbumArt(int trackId) {// trackId是音乐的id
+       String mUriTrack = "content://media/external/audio/media/#";
+       String[] projection = new String[] { "album_id" };
+       String selection = "_id = ?";
+       String[] selectionArgs = new String[] { Integer.toString(trackId) };
+       Cursor cur = LocalMusicActivity.this.getContentResolver().query(Uri.parse(mUriTrack),
+                       projection, selection, selectionArgs, null);
+       int album_id = 0;
+       if (cur.getCount() > 0 && cur.getColumnCount() > 0) {
+               cur.moveToNext();
+               album_id = cur.getInt(0);
+       }
+       cur.close();
+       cur = null;
+
+       if (album_id < 0) {
+               return null;
+       }
+       String mUriAlbums = "content://media/external/audio/albums";
+       projection = new String[] { "album_art" };
+       cur = LocalMusicActivity.this.getContentResolver().query(
+                       Uri.parse(mUriAlbums + "/" + Integer.toString(album_id)),
+                       projection, null, null, null);
+
+       String album_art = null;
+       if (cur.getCount() > 0 && cur.getColumnCount() > 0) {
+               cur.moveToNext();
+               album_art = cur.getString(0);
+       }
+       cur.close();
+       cur = null;
+
+       return album_art;
+}
 }

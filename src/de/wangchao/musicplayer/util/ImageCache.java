@@ -2,6 +2,7 @@
 package de.wangchao.musicplayer.util;
 
 import de.wangchao.musicplayer.OnlineMusicApi;
+import de.wangchao.musicplayer.R;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

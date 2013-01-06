@@ -9,13 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        layout="@layout/list_header" />
+        layout="@layout/list_header" />
+    
     <ListView
         android:id="@+id/listView_music"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/header" 
         android:layout_above="@id/panel"
-        android:layout_below="@id/header"
         android:layout_alignParentLeft="true" >
 
     </ListView>

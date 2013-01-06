@@ -2,7 +2,7 @@
 package de.wangchao.musicplayer.widget;
 
 import de.wangchao.musicplayer.R;
-import de.wangchao.musicplayer.type.Track;
+import de.wangchao.musicplayer.type.Music;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,11 +13,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class TrackAdapter extends MyArrayAdapter<Track> {
+public class TrackAdapter extends MyArrayAdapter<Music> {
 
     TrackWrapper holder;
     Activity mActivity;
-    ArrayList<Track> mlist = null;
+    ArrayList<Music> mlist = null;
 
     public TrackAdapter(Context context) {
 
@@ -85,14 +85,14 @@ public class TrackAdapter extends MyArrayAdapter<Track> {
             return pic;
         }
 
-        void populateFrom(Track track) {
+        void populateFrom(Music track) {
 
             if (track == null) {
                 return;
             }
-            getSongName().setText(track.getTrackName());
-            getSingerName().setText(track.getArtistName());
-            getPic().setTag(track.getSongImageUrl());
+            getSongName().setText(track.getSongName());
+            getSingerName().setText(track.getSingerName());
+            getPic().setTag(track.getPic());
         }
     }
 }

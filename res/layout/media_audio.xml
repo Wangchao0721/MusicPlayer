@@ -193,13 +193,13 @@
         android:background="@drawable/music_bottom_bg" >
 
     <TableRow android:layout_marginBottom="@dimen/edge_margin" >
-
+
             <Button
                 android:id="@+id/btn_shuffle"
                 style="@style/musicplayer_action_btn"
-                android:drawableTop="@drawable/btn_action_shuffle"
+                android:drawableTop="@drawable/btn_action_sequence"
                 android:onClick="onShuffleClick"
-                android:text="@string/shuffle" />
+                android:text="@string/sequence" />
 
             <Button
                 android:id="@+id/btn_repeatmode"

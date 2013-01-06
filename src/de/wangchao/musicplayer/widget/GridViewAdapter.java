@@ -16,9 +16,10 @@ public class GridViewAdapter extends BaseAdapter {
 			R.drawable.list_topbar_online,R.drawable.list_topbar_favorite,R.drawable.list_topbar_ring,
 			R.drawable.list_topbar_online,R.drawable.list_topbar_favorite,R.drawable.list_topbar_ring};
 	private String[] txt_array={"歌曲","歌手","专辑","文件夹","播放列表","扫描音乐"};
-	
-	public GridViewAdapter(Context context){
+	private int width;
+	public GridViewAdapter(Context context,int width){
 		this.context=context;
+		this.width=width;
 	}
 	@Override
 	public int getCount() {
@@ -47,7 +48,7 @@ public class GridViewAdapter extends BaseAdapter {
 		   holder=new ViewHolder();
 		   view=LayoutInflater.from(context).inflate(R.layout.main_tab_item, null);
 		   view.setBackgroundResource(R.drawable.mini_player_panel_bg);
-		   view.setLayoutParams(new AbsListView.LayoutParams(150,150));
+		   view.setLayoutParams(new AbsListView.LayoutParams(width,width));
 		   holder.img=(ImageView)view.findViewById(R.id.img_tab_item);
 		   holder.txt=(TextView)view.findViewById(R.id.tv_tab_item);
 		   //view.setPadding(8,8,8,8);  

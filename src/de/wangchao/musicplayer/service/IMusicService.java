@@ -1,20 +1,20 @@
 
 package de.wangchao.musicplayer.service;
 
-import de.wangchao.musicplayer.type.Track;
+import de.wangchao.musicplayer.type.Music;
 
 import java.util.ArrayList;
 
 public interface IMusicService {
-    void openFile(Track track);
+    void openFile(Music Music);
 
-    void setOnlinePlayList(ArrayList<Track> list);
+    void setOnlinePlayList(ArrayList<Music> list);
 
-    ArrayList<Track> getOnlinePlayList();
+    ArrayList<Music> getOnlinePlayList();
 
-    void open(ArrayList<Track> list, int position);
+    void open(ArrayList<Music> list, int position);
 
-    Track getTrackToPlay();
+    Music getTrackToPlay();
 
     // int getQueuePosition();
     boolean isInitialized();
@@ -67,7 +67,7 @@ public interface IMusicService {
 
     int getShuffleMode();
 
-    // int removeTracks(int first, int last);
+    // int removeMusics(int first, int last);
     int removeTrack(long id);
     // void setRepeatMode(int repeatmode);
     // int getRepeatMode();

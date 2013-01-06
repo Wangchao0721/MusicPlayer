@@ -6,6 +6,9 @@ import java.util.Map;
 import de.wangchao.musicplayer.type.Music;
 import de.wangchao.musicplayer.R;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +82,15 @@ public class MusicListAdapter extends BaseAdapter{
 		
 		holder.song.setText(list.get(position).get("txt1").toString());
 		holder.singer.setText(list.get(position).get("txt2").toString());
+		if(tag.equals("album")){
+		  if(list.get(position).get("art")!=null){
+			 String album_art= list.get(position).get("art").toString();
+		     Bitmap bm = BitmapFactory.decodeFile(album_art);
+             BitmapDrawable bmpDraw = new BitmapDrawable(bm);
+             holder.img_album.setImageDrawable(bmpDraw);
+		  }
+		  
+		}
 		
 		return convertView;
 	}

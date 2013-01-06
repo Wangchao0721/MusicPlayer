@@ -35,7 +35,7 @@ public class OnlineMusicApi {
          new BasicNameValuePair("tp", String.valueOf(1)), //
          new BasicNameValuePair("id", String.valueOf(12)));
          String content = mHttpApi.doHttpRequest(httpGet);
-         Log.i("1",content);
+         
          Type type = new TypeToken<ArrayList<Music>>() {}.getType();
          return gson.fromJson(content, type);
      }

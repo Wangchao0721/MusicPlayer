@@ -4,7 +4,7 @@ package de.wangchao.musicplayer.widget;
 import de.wangchao.musicplayer.R;
 import de.wangchao.musicplayer.activity.MediaPlayerActivity;
 import de.wangchao.musicplayer.service.MusicService;
-import de.wangchao.musicplayer.type.Track;
+import de.wangchao.musicplayer.type.Music;
 import de.wangchao.musicplayer.util.ImageCache;
 
 import android.content.BroadcastReceiver;
@@ -48,11 +48,6 @@ public class MiniPlayPannelWrapper {
             public void onClick(View v) {
 
                 Intent intent = new Intent(holder.getContext(), MediaPlayerActivity.class);
-                if (preTrack != null) {
-                    if (preTrack.isKMusic()) {
-                        intent.putExtra("isKSong", true);
-                    }
-                }
                 v.getContext().startActivity(intent);
             }
 
@@ -109,7 +104,7 @@ public class MiniPlayPannelWrapper {
         return miniPlayNextButton;
     }
 
-    private Track preTrack = null;
+    private Music preTrack = null;
 
     public void bindService(final MusicService service) {
 
@@ -126,7 +121,7 @@ public class MiniPlayPannelWrapper {
             getMiniPlayStopButton().setVisibility(View.GONE);
         }
 
-        Track track = service.getTrackToPlay();
+        Music track = service.getTrackToPlay();
         if (track == null) {
             clearView();
             return;
@@ -136,9 +131,10 @@ public class MiniPlayPannelWrapper {
         }
         preTrack = track;
 
-        getMiniPlaySongText().setText(track.getTrackName());
-        getMiniPlaySingerText().setText(track.getArtistName());
-        ImageCache.getInstance().getDrawable(track.getSongImageUrl(), getMiniPlayImage());
+        getMiniPlaySongText().setText(track.getSongName());
+        getMiniPlaySingerText().setText(track.getSingerName());
+        getMiniPlayImage().setImageResource(R.drawable.mini_default_album);
+        ImageCache.getInstance().getDrawable(track.getPic(), getMiniPlayImage());
         getMiniPlayPlayButton().setOnClickListener(new View.OnClickListener() {
 
             @Override
