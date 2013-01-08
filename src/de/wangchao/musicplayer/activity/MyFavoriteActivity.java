@@ -37,7 +37,7 @@ import android.widget.RelativeLayout;
 public class MyFavoriteActivity extends Activity {
 	private boolean mBound=false;
 	 private MusicService mService;
-	 private ArrayList<Music> mTrackList = new ArrayList<Music>();
+	 private ArrayList<Music> mTrackList;
 	 private MiniPlayPannelWrapper miniPlayPannelWrapper;
 	 private ListView lv_music;
 	 private ThumbnailAdapter listThumbnailAdapter = null;
@@ -79,7 +79,8 @@ public class MyFavoriteActivity extends Activity {
 	     header.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 5));
 	     
 	     
-	     database=new DataBase(this);  
+	     database=new DataBase(this);
+	     mTrackList=new ArrayList<Music>();
 	     View panel=(View)findViewById(R.id.panel);
 	     miniPlayPannelWrapper=new MiniPlayPannelWrapper(panel);
 	     
@@ -127,7 +128,7 @@ public class MyFavoriteActivity extends Activity {
 	        musicWrapper.set(music);
 	        listThumbnailAdapter.notifyDataSetChanged();
 	
-	        mTrackList.clear();
+	        mTrackList.clear(); //之前这里是mTrackList.clear()，居然会使MusicService.java中的mPlayList也清空了。
 	        mTrackList.addAll(music);
 	     
 	 }

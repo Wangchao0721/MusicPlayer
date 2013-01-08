@@ -271,6 +271,7 @@ public class MusicService extends Service implements IMusicService {
         // ApplicationContext.getPowerManager() crashes.
         mPlayer = new MultiPlayer();
         mPlayer.setHandler(mMediaplayerHandler);
+        mPlayList = new ArrayList<Music>();
 
     }
 
@@ -524,19 +525,22 @@ public class MusicService extends Service implements IMusicService {
     public void setOnlinePlayList(ArrayList<Music> list) {
 
         playedId=new ArrayList<Integer>();
+        mPlayList=new ArrayList<Music>();
         if (list.size() != 0) {
-        	mPlayList = list;
+        	mPlayList.addAll(list);    //mPlayList=list cause external list and list in service is the same variable,
+        	                     //external list alter will cause list in service alter.
             mPlayListLen = list.size();
         }
     }
 
     @Override
     public ArrayList<Music> getOnlinePlayList() {
-
         if (null == mPlayList) {
             return null;
         }
-        return mPlayList;
+        ArrayList<Music> list=new ArrayList<Music>();
+        list.addAll(mPlayList);
+        return list;
     }
 
     @Override

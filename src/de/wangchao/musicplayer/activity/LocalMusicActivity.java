@@ -226,42 +226,6 @@ public class LocalMusicActivity extends Activity{
 			map.put("list", musiclist);
 			albumMusicMap.add(map);
 		}
-		if(mMusicList.size()!=0)
-		Toast.makeText(getApplicationContext(), getAlbumArt(mMusicList.get(0).getSongId()), Toast.LENGTH_SHORT).show();
+		cursor.close();
    }
-   
-   public String getAlbumArt(int trackId) {// trackId是音乐的id
-       String mUriTrack = "content://media/external/audio/media/#";
-       String[] projection = new String[] { "album_id" };
-       String selection = "_id = ?";
-       String[] selectionArgs = new String[] { Integer.toString(trackId) };
-       Cursor cur = LocalMusicActivity.this.getContentResolver().query(Uri.parse(mUriTrack),
-                       projection, selection, selectionArgs, null);
-       int album_id = 0;
-       if (cur.getCount() > 0 && cur.getColumnCount() > 0) {
-               cur.moveToNext();
-               album_id = cur.getInt(0);
-       }
-       cur.close();
-       cur = null;
-
-       if (album_id < 0) {
-               return null;
-       }
-       String mUriAlbums = "content://media/external/audio/albums";
-       projection = new String[] { "album_art" };
-       cur = LocalMusicActivity.this.getContentResolver().query(
-                       Uri.parse(mUriAlbums + "/" + Integer.toString(album_id)),
-                       projection, null, null, null);
-
-       String album_art = null;
-       if (cur.getCount() > 0 && cur.getColumnCount() > 0) {
-               cur.moveToNext();
-               album_art = cur.getString(0);
-       }
-       cur.close();
-       cur = null;
-
-       return album_art;
-}
 }

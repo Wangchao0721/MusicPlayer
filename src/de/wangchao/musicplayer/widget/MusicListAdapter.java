@@ -89,6 +89,9 @@ public class MusicListAdapter extends BaseAdapter{
              BitmapDrawable bmpDraw = new BitmapDrawable(bm);
              holder.img_album.setImageDrawable(bmpDraw);
 		  }
+		  else{
+	   	     holder.img_album.setImageResource(R.drawable.default_mini_album);
+		  }
 		  
 		}
 		
