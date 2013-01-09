@@ -15,6 +15,7 @@
         android:background="@drawable/music_titles_bg" >
 
         <Button
+            android:id="@+id/audio_back"
             android:layout_width="@dimen/media_titlebtn_size"
             android:layout_height="@dimen/media_titlebtn_size"
             android:layout_centerVertical="true"
@@ -22,17 +23,31 @@
             android:background="@drawable/left_expand"
             android:onClick="onBackClick" />
 
-        <TextView
+         <Button
+            android:id="@+id/audio_list"
+            android:layout_width="@dimen/media_titlebtn_size"
+            android:layout_height="@dimen/media_titlebtn_size"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/edge_margin"
+            android:onClick="onPlayListClick"
+            android:background="@drawable/btn_list" />
+         
+        <de.wangchao.musicplayer.widget.MarqueeTextView
             android:id="@+id/media_trackname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:gravity="center_vertical"
+            android:layout_toRightOf="@id/audio_back"
+            android:layout_toLeftOf="@id/audio_list"
+            android:gravity="center"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
             android:shadowColor="#ff000000"
             android:shadowDx="0"
             android:shadowDy="0"
             android:shadowRadius="3"
-            android:singleLine="true"
             android:textColor="#ffffffff"
             android:textSize="20sp" />
 
@@ -48,16 +63,7 @@
             android:shadowRadius="3"
             android:singleLine="true"
             android:textColor="#ffffffff"
-            android:textSize="14sp" />
-
-        <Button
-            android:layout_width="@dimen/media_titlebtn_size"
-            android:layout_height="@dimen/media_titlebtn_size"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/edge_margin"
-            android:onClick="onPlayListClick"
-            android:background="@drawable/btn_list" />
+            android:textSize="14sp" />    
     </RelativeLayout>
 
     <!-- Album Cover -->

@@ -49,6 +49,7 @@ public class LocalMusicActivity extends Activity{
    public static ArrayList<Map<String,Object>> allMusicMap=new ArrayList<Map<String,Object>>();
    public static ArrayList<Map<String,Object>> singerMusicMap=new ArrayList<Map<String,Object>>();
    public static ArrayList<Map<String,Object>> albumMusicMap=new ArrayList<Map<String,Object>>();
+   public static ArrayList<Map<String,Object>> fileMusicMap=new ArrayList<Map<String,Object>>();
    
    private ServiceConnection mConnection = new ServiceConnection() {
 	        @Override
@@ -158,6 +159,7 @@ public class LocalMusicActivity extends Activity{
 	   allMusicMap.clear();
 	   singerMusicMap.clear();
 	   albumMusicMap.clear();
+	   fileMusicMap.clear();
 	   
 	   ContentResolver contentResolver = LocalMusicActivity.this.getContentResolver(); 
 	   
@@ -214,10 +216,12 @@ public class LocalMusicActivity extends Activity{
 			String albumname=cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Albums.ALBUM));
 			String albumart=cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Albums.ALBUM_ART));
 			String singer=cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Albums.ARTIST));
+			
 			ArrayList<Music> musiclist=new ArrayList<Music>();
 			for(int i=0;i<mMusicList.size();i++){
 				if(mMusicList.get(i).getAlbum().equals(albumname)){
 					musiclist.add(mMusicList.get(i));
+					mMusicList.get(i).setPic(albumart);//add pic in song
 				}
 			}
 			map.put("txt1", albumname);
@@ -227,5 +231,25 @@ public class LocalMusicActivity extends Activity{
 			albumMusicMap.add(map);
 		}
 		cursor.close();
+		
+		//file
+		ArrayList<String> fileList=new ArrayList<String>();//list to store file url which contains music
+		for(Music music : mMusicList){
+		    String fileurl=Tools.getFileUrlString(music.getWebFile());
+			if(!fileList.contains(fileurl))
+				fileList.add(fileurl);
+		}
+		for(String url : fileList){
+			ArrayList<Music> fileMusic=new ArrayList<Music>();
+			for(Music music : mMusicList){
+				if(url.equals(Tools.getFileUrlString(music.getWebFile())))
+					fileMusic.add(music);
+			}
+			Map<String,Object> map=new HashMap<String,Object>();
+		    map.put("txt1", Tools.getFileNameString(url));
+		    map.put("txt2", url);
+		    map.put("list", fileMusic);
+		    fileMusicMap.add(map);
+		}
    }
 }

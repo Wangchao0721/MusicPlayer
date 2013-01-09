@@ -27,6 +27,9 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.net.Uri;
@@ -648,9 +651,22 @@ public class MediaPlayerActivity extends Activity {
         if (mService == null) {
             return;
         }
-
-        ImageCache.getInstance().getDrawable(mService.getSongImageUrl(), mSongImageView);
-
+        
+        Music currentTrack=mService.getTrackToPlay();
+        if(currentTrack!=null){
+	        if(currentTrack.getFormNet())
+	            ImageCache.getInstance().getDrawable(mService.getSongImageUrl(), mSongImageView);
+	        else{
+	        	Bitmap bm = BitmapFactory.decodeFile(currentTrack.getPic());
+	        	if(bm!=null){
+	               BitmapDrawable bmpDraw = new BitmapDrawable(bm);
+	               mSongImageView.setImageDrawable(bmpDraw);
+	        	}
+	        	else{
+	        	   mSongImageView.setImageResource(R.drawable.default_pic_4);
+	        	}
+	        }
+        }
         mTrackNameView.setText(mService.getTrackName());
         mSingerNameView.setText(mService.getArtistName());
         mDuration = mService.duration();

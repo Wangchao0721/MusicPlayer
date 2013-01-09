@@ -294,4 +294,36 @@ public class Tools {
         });
         builder.create().show();
     }
+    
+    //get song file url substring 
+    public static String getFileUrlString(String str){
+    	char [] array=str.toCharArray();
+    	int pos=0;//the last file separator position
+    	for(int i=array.length-1;i>=0;i--){
+    		if(array[i]==File.separatorChar){
+    			pos=i;
+    			break;
+    		}
+    	}  	
+    	return str.substring(0, pos+1);
+    }
+    
+    public static String getFileNameString(String str){
+    	char [] array=str.toCharArray();
+    	int pos1=0;//the last file separator position
+    	int pos2=0;//the last but one file separator position
+    	for(int i=array.length-1;i>=0;i--){
+    		if(array[i]==File.separatorChar){
+    			if(pos1==0)
+    			    pos1=i;
+    			else{
+    				pos2=i;
+    				break;
+    			}
+    		}
+    	}  	
+    	return str.substring(pos2+1, pos1);
+    }
+    
+    
 }

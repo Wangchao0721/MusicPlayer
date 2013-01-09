@@ -44,6 +44,7 @@ public class LocalMusicListActivity extends Activity{
 	 private boolean inSinger=false;
 	 private boolean inAlbum=false;
 	 private boolean inPlayList=false;
+	 private boolean inFile=false;
 	 private TextView tv_count;
 	 private TextView tv_content;
 	 private ImageView img_back;
@@ -149,7 +150,7 @@ public class LocalMusicListActivity extends Activity{
                    intent.putExtra("position", position);
                    startActivity(intent);
 				}
-				if(adapter.getTag().equals("singer")||adapter.getTag().equals("album")){
+				if(adapter.getTag().equals("singer")||adapter.getTag().equals("album")||adapter.getTag().equals("file")){
 					ArrayList<Map<String,Object>> newlist=new ArrayList<Map<String,Object>>();
 					ArrayList<Music> musiclist=(ArrayList<Music>)adapter.getList().get(position).get("list");
 					for(int i=0;i<musiclist.size();i++){
@@ -163,6 +164,8 @@ public class LocalMusicListActivity extends Activity{
 					    inSinger=true;
 					if(adapter.getTag().equals("album"))
 						inAlbum=true;
+					if(adapter.getTag().equals("file"))
+						inFile=true;
 					adapter.setList(newlist, "song");
 					setHeader();
 				}
@@ -194,7 +197,9 @@ public class LocalMusicListActivity extends Activity{
 			if(id.equals("album")){
 				adapter.setList(LocalMusicActivity.albumMusicMap,id);
 			}
-			
+			if(id.equals("file")){
+				adapter.setList(LocalMusicActivity.fileMusicMap,id);
+			}
 			lv_music.setAdapter(adapter);
 			setHeader();
 			
@@ -230,7 +235,13 @@ public class LocalMusicListActivity extends Activity{
     		 setHeader();
     		 return;
     	 }
-         super.onBackPressed();
+    	 if(inFile){
+    		 inFile=false;
+    		 adapter.setList(LocalMusicActivity.fileMusicMap, "file");
+    		 setHeader();
+    		 return;
+    	 }
+    	 super.onBackPressed();
      }
      
      private void setHeader(){
@@ -242,6 +253,8 @@ public class LocalMusicListActivity extends Activity{
     		tv_content.setText("位歌手");
     	if(content.equals("album"))
     		tv_content.setText("张专辑");
+    	if(content.equals("file"))
+    		tv_content.setText("个文件夹");
     		
      }
 }

@@ -25,18 +25,22 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/list_select_margin_right"
         android:background="@drawable/select" />
-
+
     <TextView
         android:id="@+id/Song"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/img_album"
         android:layout_marginTop="@dimen/list_txt_margin_top"
+        android:layout_toLeftOf="@id/img_select"
         android:layout_toRightOf="@+id/img_album"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:singleLine="true"
         android:text="TextView"
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_size_medium" />
-
+
     <TextView
         android:id="@+id/Singer"
         android:layout_width="wrap_content"
