@@ -3,7 +3,7 @@
     android:id="@+id/list_item"
     android:layout_width="fill_parent"
     android:layout_height="@dimen/list_item_height"
-    android:background="@drawable/music_bottom_bg"
+    android:background="@drawable/list_selector"
     android:padding="5dp" >
 
     <ImageView
@@ -13,8 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/list_img_margin_left"
-        android:layout_marginRight="@dimen/list_img_margin_right"
-        android:background="@drawable/default_mini_album" />
+        android:layout_marginRight="@dimen/list_img_margin_right"/>
 
     <ImageView
         android:id="@+id/img_select"
@@ -52,17 +51,5 @@
         android:text="TextView"
         android:textSize="@dimen/text_size_small" />
     
-    <TextView 
-        android:id="@+id/txt_pop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/Singer"
-        android:layout_below="@+id/Song"
-        android:gravity="top"
-        android:text="pop"
-        android:visibility="gone"
-        android:layout_marginLeft="5dip"
-        android:textColor="@color/red"
-        android:textSize="@dimen/text_size_small" />
-
+   
 </RelativeLayout>

@@ -14,16 +14,17 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/music_titles_bg" >
 
-        <Button
+        <ImageView
             android:id="@+id/audio_back"
             android:layout_width="@dimen/media_titlebtn_size"
             android:layout_height="@dimen/media_titlebtn_size"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/edge_margin"
-            android:background="@drawable/left_expand"
-            android:onClick="onBackClick" />
+            android:src="@drawable/left_expand"
+            android:onClick="onBackClick" 
+            android:background="@drawable/button_click"/>
 
-         <Button
+         <ImageView
             android:id="@+id/audio_list"
             android:layout_width="@dimen/media_titlebtn_size"
             android:layout_height="@dimen/media_titlebtn_size"
@@ -31,7 +32,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/edge_margin"
             android:onClick="onPlayListClick"
-            android:background="@drawable/btn_list" />
+            android:src="@drawable/btn_list" 
+            android:background="@drawable/button_click"/>
          
         <de.wangchao.musicplayer.widget.MarqueeTextView
             android:id="@+id/media_trackname"

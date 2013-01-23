@@ -3,7 +3,7 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
+
     <GridView
         android:id="@+id/gridView1"
         style="@style/AppTheme"
@@ -11,10 +11,10 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:gravity="center"
-        android:horizontalSpacing="5px"
+        android:horizontalSpacing="5dp"
         android:numColumns="3"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="5px" >
+        android:verticalSpacing="5dp" >
 
     </GridView>
 

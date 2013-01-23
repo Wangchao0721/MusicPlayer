@@ -13,9 +13,9 @@ import android.widget.TextView;
 public class GridViewAdapter extends BaseAdapter {
     Context context;
     private int[] img_array={
-			R.drawable.list_topbar_online,R.drawable.list_topbar_favorite,R.drawable.list_topbar_ring,
-			R.drawable.list_topbar_online,R.drawable.list_topbar_favorite,R.drawable.list_topbar_ring};
-	private String[] txt_array={"歌曲","歌手","专辑","文件夹","播放列表","扫描音乐"};
+			R.drawable.list_topbar_online,R.drawable.person,R.drawable.album,
+			R.drawable.file,R.drawable.list,R.drawable.setting};
+	private String[] txt_array={"歌曲","歌手","专辑","文件夹","播放列表","设置"};
 	private int width;
 	public GridViewAdapter(Context context,int width){
 		this.context=context;

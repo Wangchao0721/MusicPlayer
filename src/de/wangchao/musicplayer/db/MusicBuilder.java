@@ -13,6 +13,7 @@ public class MusicBuilder extends DatabaseBuilder<Music> {
 	private static final String MUSIC_LRC_URL="lrcurl";
 	private static final String MUSIC_PIC="pic";
 	private static final String MUSIC_SINGER_NAME="sname";
+	private static final String MUSIC_FORM_NET="fromnet";
 
 	@Override
 	public Music build(Cursor c) {
@@ -25,6 +26,7 @@ public class MusicBuilder extends DatabaseBuilder<Music> {
 		int columnLrcUrl = c.getColumnIndex(MUSIC_LRC_URL);
 		int columnPic = c.getColumnIndex(MUSIC_PIC);
 		int columnSname = c.getColumnIndex(MUSIC_SINGER_NAME);
+		int columnFormNet = c.getColumnIndex(MUSIC_FORM_NET);
 		
 		Music music = new Music();
 		
@@ -36,6 +38,10 @@ public class MusicBuilder extends DatabaseBuilder<Music> {
 		music.setLrcUrl(c.getString(columnLrcUrl));
 		music.setPic(c.getString(columnPic));
 		music.setSingerName(c.getString(columnSname));
+		if(c.getInt(columnFormNet)==0)
+		    music.setFormNet(false);
+		else
+			music.setFormNet(true);
 		
 		return music;
 	}
@@ -53,6 +59,7 @@ public class MusicBuilder extends DatabaseBuilder<Music> {
 		contentValues.put(MUSIC_LRC_URL, t.getLrcUrl());
 		contentValues.put(MUSIC_PIC, t.getPic());
 		contentValues.put(MUSIC_SINGER_NAME, t.getSingerName());
+		contentValues.put(MUSIC_FORM_NET, t.getFormNet());
 		
 		return contentValues;
 	}

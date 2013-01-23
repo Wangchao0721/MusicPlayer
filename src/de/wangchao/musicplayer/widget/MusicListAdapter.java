@@ -3,6 +3,7 @@ package de.wangchao.musicplayer.widget;
 import java.util.ArrayList;
 import java.util.Map;
 
+import de.wangchao.musicplayer.activity.LocalMusicActivity;
 import de.wangchao.musicplayer.type.Music;
 import de.wangchao.musicplayer.R;
 import android.content.Context;
@@ -83,7 +84,8 @@ public class MusicListAdapter extends BaseAdapter{
 		
 		holder.song.setText(list.get(position).get("txt1").toString());
 		holder.singer.setText(list.get(position).get("txt2").toString());
-		if(tag.equals("album")){
+		
+		if(tag.equals(LocalMusicActivity.ALBUM_MUSIC)||tag.equals(LocalMusicActivity.ALL_MUSIC)){
 		  if(list.get(position).get("art")!=null){
 			 String album_art= list.get(position).get("art").toString();
 		     Bitmap bm = BitmapFactory.decodeFile(album_art);
@@ -95,7 +97,12 @@ public class MusicListAdapter extends BaseAdapter{
 		  }
 		  
 		}
-		
+		else if(tag.equals(LocalMusicActivity.SINGER_MUSIC))
+			holder.img_album.setImageResource(R.drawable.large_person);
+		else if(tag.equals(LocalMusicActivity.FILE_MUSIC))
+			holder.img_album.setImageResource(R.drawable.large_file);
+		else if(tag.equals(LocalMusicActivity.PLAYLIST_MUSIC))
+			holder.img_album.setImageResource(R.drawable.large_list);
 		return convertView;
 	}
 	

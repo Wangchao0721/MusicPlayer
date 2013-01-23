@@ -22,5 +22,6 @@
     <color name="dialog_divider_color">#EAEAEA</color>
     <color name="dialog_text_color">#090909</color>
     <color name="red">#FF0000</color>
+    <color name="orange">#FFA500</color>
 
 </resources>

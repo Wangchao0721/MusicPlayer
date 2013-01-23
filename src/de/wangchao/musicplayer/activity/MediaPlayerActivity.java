@@ -342,14 +342,7 @@ public class MediaPlayerActivity extends Activity {
     }
     
     public void onPlayListClick(View v){
-    	playList=mService.getOnlinePlayList();
-    	if(playList==null||playList.size()==0){
-    		Toast.makeText(getApplicationContext(), "没有歌曲在播放", Toast.LENGTH_SHORT).show();
-    		return;
-    	}
-    	Intent intent=new Intent(MediaPlayerActivity.this,LocalMusicListActivity.class);
-    	intent.putExtra("id", "playlist");
-    	startActivity(intent);
+    	Tools.ShowPlayListDialog(MediaPlayerActivity.this, mService.getOnlinePlayList());
     }
     
     public void onFavClick(View v){
@@ -791,4 +784,5 @@ public class MediaPlayerActivity extends Activity {
             finish();
         }
     };
+    
 }

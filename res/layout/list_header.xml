@@ -11,8 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/music_bottom_bg" >
-
+        android:background="@drawable/music_bottom_bg" >
         <ImageView
             android:id="@+id/iv_header_back"
             android:layout_width="wrap_content"
@@ -22,8 +21,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/edge_margin"
             android:layout_marginRight="@dimen/edge_margin"
-            android:src="@drawable/left_expand" />
-
+            android:src="@drawable/left_expand" 
+            android:background="@drawable/button_click"/>
         <TextView
             android:id="@+id/tv_count"
             android:layout_width="wrap_content"
@@ -35,19 +34,7 @@
             android:text="28"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/text_white"
-            android:textSize="28sp" />
-
-        <Button
-            android:id="@+id/btn_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/iv_header_back"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/edge_margin"
-            android:background="@drawable/btn_list" />
-
+            android:textSize="28sp" />
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="wrap_content"
@@ -59,6 +46,18 @@
             android:text="首歌曲"
             android:textColor="@color/text_white"
             android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/btn_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/iv_header_back"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/edge_margin"
+            android:src="@drawable/btn_list"
+            android:background="@drawable/button_click" />
 
     </RelativeLayout>
 

@@ -2,6 +2,9 @@
 package de.wangchao.musicplayer.util;
 
 import de.wangchao.musicplayer.R;
+import de.wangchao.musicplayer.activity.MediaPlayerActivity;
+import de.wangchao.musicplayer.activity.SongsListActivity;
+import de.wangchao.musicplayer.type.Music;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -15,6 +18,8 @@ import android.os.Environment;
 import android.os.StatFs;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -23,6 +28,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.Locale;
@@ -294,7 +300,7 @@ public class Tools {
         });
         builder.create().show();
     }
-    
+   
     //get song file url substring 
     public static String getFileUrlString(String str){
     	char [] array=str.toCharArray();
@@ -325,5 +331,26 @@ public class Tools {
     	return str.substring(pos2+1, pos1);
     }
     
-    
+    public static void ShowPlayListDialog(final Activity a, ArrayList<Music> playlist) {
+	    AlertDialog.Builder builder = new AlertDialog.Builder(a);
+	    builder.setTitle("正在播放列表");
+		
+		if(playlist==null||playlist.size()==0){
+		      Toast.makeText(a, "没有歌曲在播放", Toast.LENGTH_SHORT).show();
+			  return;
+		}
+		String[] array = new String[playlist.size()];
+		for(int i=0;i<playlist.size();i++){
+			array[i]=playlist.get(i).getSongName();
+		}
+		
+	    builder.setItems(array, new DialogInterface.OnClickListener() {
+	           public void onClick(DialogInterface dialog, int position) {
+	        	   Intent intent = new Intent(a,MediaPlayerActivity.class);
+                   intent.putExtra("position", position);
+                   a.startActivity(intent);
+	           }
+	    });
+	    builder.create().show();
+  }
 }

@@ -91,6 +91,7 @@ public class MusicsAdapter extends MyArrayAdapter<Music> {
             getSongName().setText(music.getSongName());
             getSingerName().setText(music.getSingerName());
             getPic().setTag(music.getPic());
+            getPic().setImageResource(R.drawable.default_mini_album);
         }
     }
 }

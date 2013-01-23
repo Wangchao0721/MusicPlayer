@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.wangchao.musicplayer.R;
+import de.wangchao.musicplayer.db.DataBase;
 import de.wangchao.musicplayer.service.MusicService;
 import de.wangchao.musicplayer.service.MusicService.MusicBinder;
 import de.wangchao.musicplayer.type.Music;
@@ -45,11 +46,18 @@ public class LocalMusicActivity extends Activity{
    private boolean mBound=false;
    private MusicService mService;
    private MiniPlayPannelWrapper miniPlayPannelWrapper;
+   private static DataBase db;
    private ArrayList<Music> mMusicList = new ArrayList<Music>();
    public static ArrayList<Map<String,Object>> allMusicMap=new ArrayList<Map<String,Object>>();
    public static ArrayList<Map<String,Object>> singerMusicMap=new ArrayList<Map<String,Object>>();
    public static ArrayList<Map<String,Object>> albumMusicMap=new ArrayList<Map<String,Object>>();
    public static ArrayList<Map<String,Object>> fileMusicMap=new ArrayList<Map<String,Object>>();
+   public static ArrayList<Map<String,Object>> playListMusicMap=new ArrayList<Map<String,Object>>();
+   public static final String ALL_MUSIC="allmusic";
+   public static final String SINGER_MUSIC="singermusic";
+   public static final String ALBUM_MUSIC="albummusic";
+   public static final String FILE_MUSIC="filemusic";
+   public static final String PLAYLIST_MUSIC="playlistmusic";
    
    private ServiceConnection mConnection = new ServiceConnection() {
 	        @Override
@@ -79,7 +87,7 @@ public class LocalMusicActivity extends Activity{
 	   setContentView(R.layout.local_home);
 	   View panel=(View)findViewById(R.id.panel);
 	   miniPlayPannelWrapper=new MiniPlayPannelWrapper(panel);
-	   
+	   db=new DataBase(this);
 	   //lv_music=(ListView)findViewById(R.id.listView1);
 	   DisplayMetrics outMetrics = new   DisplayMetrics();
 	   this.getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
@@ -95,22 +103,23 @@ public class LocalMusicActivity extends Activity{
 				Intent intent=new Intent(LocalMusicActivity.this,LocalMusicListActivity.class);
 				switch(position){
 				case 0:
-					intent.putExtra("id", "song");
+					intent=new Intent(LocalMusicActivity.this,SongsListActivity.class);
+					intent.putExtra("id", ALL_MUSIC);
 					break;
 				case 1:
-					intent.putExtra("id", "singer");
+					intent.putExtra("id", SINGER_MUSIC);
 					break;
 				case 2:
-					intent.putExtra("id", "album");
+					intent.putExtra("id", ALBUM_MUSIC);
 					break;
 				case 3:
-					intent.putExtra("id", "file");
+					intent.putExtra("id", FILE_MUSIC);
 					break;
 				case 4:
-					intent.putExtra("id", "list");
+					intent.putExtra("id", PLAYLIST_MUSIC);
 					break;
 				case 5:
-					intent.putExtra("id", "scan");
+					intent=new Intent(LocalMusicActivity.this,SettingsActivity.class);
 					break;
 				default:
 					break;
@@ -250,6 +259,24 @@ public class LocalMusicActivity extends Activity{
 		    map.put("txt2", url);
 		    map.put("list", fileMusic);
 		    fileMusicMap.add(map);
+		}
+		
+		//myplaylist 
+		refreshPlayList();
+   }
+   
+   public static void refreshPlayList(){
+	   playListMusicMap.clear();
+	   ArrayList<String> playlistList=db.getMyPlayList();
+		if(playlistList!=null){
+			for(String playlist:playlistList){
+				ArrayList<Music> musicInPlayList=db.getMusicInPlayList(playlist);
+				Map<String,Object> map=new HashMap<String,Object>();
+				map.put("txt1", playlist);
+				map.put("txt2", musicInPlayList.size()+"首歌曲");
+				map.put("list", musicInPlayList);
+				playListMusicMap.add(map);
+			}
 		}
    }
 }
